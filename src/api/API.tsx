@@ -1,4 +1,4 @@
-const searchGithub = async () => {
+const searchGithub = async (search: string) => {
   try {
     const start = Math.floor(Math.random() * 100000000) + 1;
     // console.log(import.meta.env);

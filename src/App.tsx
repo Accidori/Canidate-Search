@@ -1,19 +1,25 @@
-import { Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
+import PotentialCandidates from './components/PotentialCandidates';
 import './App.css';
 
 
-function App() {
+ const App: React.FC = () => {
+  const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]);
+
+
+
   return (
     <Router>
       <Nav />
-      <main>
-        <Outlet />
-      </main>
-    </>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/PotentialCandidates" element={<PotentialCandidates />} />
+          </Routes>
+        </main>
+    </Router>
   );
 }
 
