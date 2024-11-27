@@ -8,18 +8,27 @@ interface SavedCandidatesProps {
 const PotentialCandidates: React.FC<SavedCandidatesProps> = ({ savedCandidates }) => {
 
     return(
-        <div>
-            <h2>Potential Candidates</h2>
+        <div className="potential-candidates">
             {savedCandidates.length === 0 ? (
-                <p>No saved candidates yet.</p>
-            ):(
                 <ul>
                     {savedCandidates.map((candidate, index) => (
+
+
                         <li key = {index}>
-                            {candidate.username} - {candidate.name}
+                            <h3>{candidate.username}</h3>
+                            <img src={candidate.avatar_url} alt={`${candidate.name}'s avatar`}/>
+                            <h2>{candidate.name}</h2>
+                            <p>{candidate.email}</p>
+                            <p>{candidate.location}</p>
+                            <p>{candidate.company}</p>
+                            <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">
+                                View on GitHub
+                            </a>
                         </li>
                     ))}
                 </ul>
+            ):(
+                <p>No saved candidates yet.</p>
             )}
         </div>
     );

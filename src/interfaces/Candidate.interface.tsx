@@ -1,7 +1,7 @@
 
 interface Candidate {
     username: string;
-    avatar: string;
+    avatar_url: string;
     name: string;
     location: number;
     email: string;

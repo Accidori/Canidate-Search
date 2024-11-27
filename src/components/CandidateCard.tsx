@@ -2,26 +2,29 @@ import React from "react";
 import  Candidate  from "../interfaces/Candidate.interface";
 
 
-interface CandidateCardProps {
+interface Props {
     candidate: Candidate;
+    onSkip: () => void;
+    onSave: () => void;
 }
 
-const CandidateCard: React.FC<CandidateCardProps> = ({ candidate}) => {
+const CandidateCard: React.FC<Props> = ({ candidate, onSave, onSkip }) => {
     return (
-        <div>
+        <div className="candidate-card">
+            <h3>{candidate.username}</h3>
+            <img src={candidate.avatar_url} alt={`${candidate.name}'s avatar`}/>
+            <h2>{candidate.name}</h2>
+            <p>{candidate.email}</p>
+            <p>{candidate.location}</p>
+            <p>{candidate.company}</p>
+            <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">
+                View on GitHub
+            </a>
             <div>
-                <h3>{candidate.username}</h3>
-                <img src={candidate.avatar} alt={`${candidate.name}'s avatar`} width = {150}/>
-                <h2>{candidate.name}</h2>
-                <p>{candidate.email}</p>
-                <p>{candidate.location}</p>
-                <p>{candidate.company}</p>
-                <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">
-                    View on GitHub
-                </a>
-            </div> 
-        </div>
-
+                <button onClick={onSave}>+</button>
+                <button onClick={onSkip}>-</button>
+            </div>
+        </div> 
     );
 
 }
