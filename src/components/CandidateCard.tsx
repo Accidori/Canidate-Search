@@ -1,14 +1,13 @@
 import React from "react";
-import  Candidate  from "../interfaces/Candidate.interface";
+import { Candidate } from "../interfaces/Candidate.interface";
 
 
-interface Props {
+interface CandidateCardProps {
     candidate: Candidate;
-    onSkip: () => void;
-    onSave: () => void;
 }
 
-const CandidateCard: React.FC<Props> = ({ candidate, onSave, onSkip }) => {
+//hopefully this will show the candidate card in a pokemon card type of way
+const CandidateCard: React.FC<CandidateCardProps> = ({ candidate }) => {
     return (
         <div className="candidate-card">
             <h3>{candidate.username}</h3>
@@ -20,10 +19,6 @@ const CandidateCard: React.FC<Props> = ({ candidate, onSave, onSkip }) => {
             <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">
                 View on GitHub
             </a>
-            <div>
-                <button onClick={onSave}>+</button>
-                <button onClick={onSkip}>-</button>
-            </div>
         </div> 
     );
 

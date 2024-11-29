@@ -1,36 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
-import PotentialCandidates from './components/PotentialCandidates';
+import CandidateSearch from './pages/CandidateSearch';
 import Nav from './components/Nav';
 
 
-//stylize however really
-import './App.css';
-
-
+//this showes the main content in the front
 const App: React.FC = () => {
-  const [savedCandidates, setSavedCandidates] = useState<any[]>([]);
-
-
-
-    //local storage my behated
-    useEffect(() => {
-        const saved = localStorage.getItem('savedCandidates');
-        if(saved) {
-            setSavedCandidates(JSON.parse(saved));
-        }
-    }, []);
-
   return (
-    <Router>
+    <div>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/potential-candidates" element={<PotentialCandidates savedCandidates={savedCandidates} />} />
-      </Routes>
-    </Router>
+      <CandidateSearch/>
+    </div>
   );
-};
+}
 
 export default App;

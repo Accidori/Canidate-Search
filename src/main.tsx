@@ -7,6 +7,8 @@ import CandidateSearch from './pages/CandidateSearch.tsx';
 import SavedCandidates from './pages/SavedCandidates.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 
+
+//this handles bascically the routing of the app, or technically everything.
 const router = createBrowserRouter([
   {
     path: '/',
