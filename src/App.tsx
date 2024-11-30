@@ -1,19 +1,14 @@
-import { Outlet } from 'react-router-dom';
+import CandidateSearch from './pages/CandidateSearch';
 import Nav from './components/Nav';
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import './App.css';
 
 
-function App() {
+//this showes the main content in the front
+const App: React.FC = () => {
   return (
-    <Router>
+    <div>
       <Nav />
-      <main>
-        <Outlet />
-      </main>
-    </>
+      <CandidateSearch/>
+    </div>
   );
 }
 
