@@ -13,13 +13,18 @@ const CandidateSearch:  React.FC = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState<string | null>();
+
+
+
   //loading the candidates
   useEffect(() => {
     const loadCandidates = async () => {
       try{
         const candidateData = await searchGithub();
         const formatCandidates = candidateData.map((user: any) => ({
-          username: user.username,
+          username: user.login,
           avatar: user.avatar_url,
           name: user.name,
           location: user.location,
@@ -43,9 +48,7 @@ const CandidateSearch:  React.FC = () => {
     const savingCandidate = candidates[currentIndex];
     const updateSavedCan = [...savedCandidates, savingCandidate];
     setSavedCandidates(updateSavedCan);
-
     localStorage.setItem('savedCandidates', JSON.stringify(updateSavedCan));
-
     setCurrentIndex(currentIndex + 1);
   }
 
@@ -53,6 +56,42 @@ const CandidateSearch:  React.FC = () => {
   const  handleSkipCan = () => {
     setCurrentIndex(currentIndex + 1);
   }
+
+
+
+  //search for a candidate
+  const handleSearch = async () => {
+    if (!searchTerm.trim()) {
+      setError('Please enter a username.');
+      return;
+    }
+
+    try{
+      const user = await searchGithubUser(searchTerm);
+      if(user.login){
+        setError(null);
+        const formatUser = {
+          username: user.login,
+          avatar_url: user.avatar_url,
+          name: user.name,
+          location: user.location,
+          email: user.email,
+          html_url: user.html_url,
+          company: user.company,
+        }
+        setCandidates([formatUser]);
+        setCurrentIndex(0);
+        
+        
+      } else {
+        setError('User not found.');
+      }
+    }catch (err){
+      setError('Error searching for user.');
+    }
+  }
+
+
 
 
   //if there are no more candidates to view
@@ -63,6 +102,17 @@ const CandidateSearch:  React.FC = () => {
   return (
     <>
       <h1>Candidate Search</h1>
+      <input 
+      type = 'text' 
+      value = {searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      placeholder = 'Enter a github user.'
+      />
+
+      {error && <p>{error}</p>}
+
+
+      <button onClick={handleSearch}>Search</button>
       <div>
         <CandidateCard candidate={candidates[currentIndex]} />
         <button onClick={handleSaveCan}> + </button>
